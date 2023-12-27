@@ -19,6 +19,7 @@ import 'amis/sdk/iconfont.css';
 import 'amis-ui/lib/themes/cxd.css';
 import 'amis/lib/helper.css';
 import './scss/style.scss';
+import appStore from "@/stores/appStore";
 
 export default function():JSX.Element {
     const store = (window as any).store = MainStore.create({}, {
@@ -40,6 +41,8 @@ export default function():JSX.Element {
             config.headers = headers || {};
             config.method = method;
 
+            config.headers['Authorization'] = appStore.userStore.token || '';
+
             if (method === 'get' && data) {
                 config.params = data;
             } else if (data && data instanceof FormData) {
@@ -56,14 +59,13 @@ export default function():JSX.Element {
             }
 
             data && (config.data = data);
-            config.url = url;
+            config.url = '/api' + url;
             return request(config);
         },
         isCancel: (e:any) => axios.isCancel(e),
         notify: (type: 'success' | 'error' | 'info', msg: string) => {
             toast[type] ? toast[type](msg,
                 {title:type === 'error' ? '系统错误' : '系统消息', timeout:5000}) : console.warn('[Notify]', type, msg);
-            console.log('[notify]', type, msg);
         },
         alert,
         confirm,

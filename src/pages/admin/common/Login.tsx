@@ -18,8 +18,8 @@ interface LoginProps extends RouteComponentProps<any> {
 @observer
 export default class LoginRoute extends React.Component<LoginProps, any> {
   state = {
-    inputUsername: "admin",
-    inputPassword: "admin",
+    inputUsername: "ozline",
+    inputPassword: "123456",
   };
 
   handleFormSaved = (value: any) => {
@@ -30,12 +30,16 @@ export default class LoginRoute extends React.Component<LoginProps, any> {
     axios
       .request({
         method: "post",
-        url: "/api/login",
+        url: "/api/user/login",
+        data: {
+          school_id: this.state.inputUsername,
+          password: this.state.inputPassword,
+        },
       })
       .then((res) => {
         console.log("login res", res);
-        if (res.data != null && res.data.status === 0) {
-          appStore.userStore.login(this.state.inputUsername);
+        if (res.data != null && res.data.base.code === 10000) {
+          appStore.userStore.login(res.data.data, res.headers.authorization);
           toast.info("登陆成功", { timeout: "1400", position: "top-center" });
           // 跳转到dashboard页面
           console.log("replace history to dashboard, value:", value);
@@ -111,7 +115,7 @@ export default class LoginRoute extends React.Component<LoginProps, any> {
                 </Button>
               </div>
               </Card>
-              
+
             </div>
           </div>
         </div>

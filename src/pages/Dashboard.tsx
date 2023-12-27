@@ -15,7 +15,7 @@ const schema = {
                     "header": {
                         "title": "GitHub 源码",
                     },
-                    
+
                     href: "https://github.com/iceqing/react-amis-admin",
                     "body": "https://github.com/iceqing/react-amis-admin"
                 },
@@ -48,75 +48,6 @@ const schema = {
                 }
             ]
         },
-        {
-            "type": "card",
-            "name": "browser",
-            "header": {
-                "title": "",
-            },
-            body: {
-                "type": "chart",
-                "api" : "/api/line/simple",
-                "interval": 5000
-            },
-        },
-        {
-            "type": "grid",
-            "className": "m-t-lg",
-            "columns": [
-                {
-                    "type": "chart",
-                    "api": "/api/pie/simple",
-                    "interval": 5000
-                },
-                {
-                    "type": "chart",
-                    "api": "/api/gauge/simple",
-                    "interval": 5000
-                },
-                {
-                    "type": "chart",
-                    "api": "/api/chart/chart",
-                    "interval": 5000
-                }
-            ]
-        },
-        {
-            "type": "grid",
-            "className": "m-t-lg",
-            "columns": [
-                {
-                    "type": "chart",
-                    "api": "/api/chart/chartData",
-                    "config": {
-                        "xAxis": {
-                            "type": "category",
-                            "data": [
-                                "Mon",
-                                "Tue",
-                                "Wed",
-                                "Thu",
-                                "Fri",
-                                "Sat"
-                            ]
-                        },
-                        "yAxis": {
-                            "type": "value"
-                        },
-                        "series": [
-                            {
-                                "data": "${line}",
-                                "type": "line"
-                            }
-                        ]
-                    }
-                },
-                {
-                    "type": "chart",
-                    "api": "/api/chart/chart2"
-                },
-            ]
-        }
     ]
 };
 

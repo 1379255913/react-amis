@@ -3,33 +3,47 @@ import { action, computed, observable} from "mobx";
 class UserStore {
 
     @observable
-    name = "";
+    info: Record<string, any> = {}
+    // 创建一个token
+    @observable
+    token = "";
 
     constructor() {
-        this.name =  localStorage.getItem('authenticated') || '';
+        this.info =  JSON.parse(localStorage.getItem('authenticated') || '{}');
+        this.token = localStorage.getItem('token') || '';
     }
 
     @computed
     get isAuthenticated() {
-        return !!this.name;
+        return !!this.info;
     }
 
     @action
-    setName(name) {
-        this.name=name
+    setInfo(info) {
+        this.info=info
     }
 
     @action
-    login(name) {
-        this.name=name;
-        localStorage.setItem('authenticated', name);
+    setToken(token) {
+        this.token=token
+    }
+
+    @action
+    login(info, token) {
+        console.log("11111", info, "token", token)
+        this.info = info;
+        this.token = token;
+        localStorage.setItem('authenticated', JSON.stringify(info));
+        localStorage.setItem('token', token);
     }
 
 
     @action
     logout() {
         localStorage.setItem('authenticated', '');
-        this.name = '';
+        localStorage.setItem('token', '');
+        this.info = {};
+        this.token = '';
         console.log("logout finished!");
     }
 

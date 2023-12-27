@@ -11,6 +11,11 @@ module.exports = () => {
             icon: "fa fa-gauge",
           },
           {
+            path: "/hello",
+            label: "Hello",
+            icon: "fa fa-gauge",
+          },
+          {
             path: "/dialog/simple",
             label: "Dialog",
             icon: "fa fa-bomb",
